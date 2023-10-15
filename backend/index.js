@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const config = require('./config.json');
 const app = express();
-
+// const a = require('./database/createTables')
 app.use(cors());
 app.use(express.json());
 

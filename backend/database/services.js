@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {connection} = require('./connection')
+const { connection } = require('./connection');
 
 const serviceData =[
   {
@@ -159,18 +159,13 @@ const serviceData =[
 
 ]
 
-
-
-
-
 const insertProduct = (productData) => {
-  
-
+  try {
     const sql = `
-      INSERT INTO services (label,name, category, cost, rating, image)
-      VALUES (?, ?, ?, ?, ?,?)
+      INSERT INTO services (label, name, category, cost, rating, image)
+      VALUES (?, ?, ?, ?, ?, ?)
     `;
-  
+
     const values = [
       productData.label,
       productData.name,
@@ -179,22 +174,24 @@ const insertProduct = (productData) => {
       productData.rating,
       productData.image,
     ];
-  
+
     connection.query(sql, values, (err, result) => {
       if (err) {
         console.error('Error inserting product:', err);
         return;
       }
       console.log(`Product ${productData.name} inserted successfully!`);
-     
     });
-  };
+  } catch (error) {
+    console.error('Error inserting product:', error);
+  }
+};
 
-
-  function createNewTableByCategory(table_name,category) {
+function createNewTableByCategory(table_name, category) {
+  try {
     const newTableName = table_name;
-  
-    // create new table query
+
+    // Create new table query
     const createTableQuery = `CREATE TABLE IF NOT EXISTS ${newTableName} (
       id INT NOT NULL AUTO_INCREMENT,
       item_no INT NOT NULL,
@@ -203,42 +200,46 @@ const insertProduct = (productData) => {
       PRIMARY KEY (id),
       FOREIGN KEY (item_no) REFERENCES services(id)
     )`;
-  
+
     connection.query(createTableQuery, (error, results, fields) => {
       if (error) {
         console.log(`Error creating new table: ${error}`);
         return;
       }
-  
+
       console.log(`New table ${newTableName} created successfully.`);
     });
 
-    let insertQuery= ` INSERT INTO ${newTableName} (name, cost, item_no)
-    SELECT name, cost, id FROM services WHERE category = '${category}';`
+    let insertQuery = ` INSERT INTO ${newTableName} (name, cost, item_no)
+    SELECT name, cost, id FROM services WHERE category = '${category}';`;
 
     connection.query(insertQuery, (error, results, fields) => {
       if (error) {
         console.log(`Error inserting into the table: ${error}`);
         return;
       }
-  
-      console.log(`inserted into ${newTableName}`);
+
+      console.log(`Inserted into ${newTableName}`);
     });
-   
+  } catch (error) {
+    console.error('Error creating or inserting into a new table:', error);
   }
+}
 
-  
+const populateDatabase = () => {
+  try {
+    serviceData.forEach((service) => {
+      insertProduct(service);
+    });
 
+    const distinctCategories = [...new Set(serviceData.map((item) => item.category))];
 
-  
-  
+    distinctCategories.forEach((category) => {
+      createNewTableByCategory(category, category);
+    });
+  } catch (error) {
+    console.error('Error populating the database:', error);
+  }
+};
 
-  
-
-  serviceData.map(service=>insertProduct(service));
-
-  const distinctCategories = [...new Set(serviceData.map(item => item.category))];
-
-  distinctCategories.map(c=>createNewTableByCategory(c, c));
-  // distinctCategories.map(c=>console.log(c));
-  //createNewTableByCategory('Decor','Decor')
+module.exports = {populateDatabase}

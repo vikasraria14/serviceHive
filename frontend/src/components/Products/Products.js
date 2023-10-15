@@ -129,6 +129,7 @@ const Products = () => {
     products,
     productId,
     qty,
+    category,
     options = { preventDuplicate: false }
   ) => {
     if (!token) {
@@ -149,7 +150,7 @@ const Products = () => {
     try {
       const response = await axios.post(
         `${config.endpoint}/cart/add`,
-        { productId, qty },
+        { productId, qty, category },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -304,9 +305,11 @@ const Products = () => {
                           productData,
                           item.id,
                           1,
+                          item.category,
                           {
                             preventDuplicate: true,
                           },
+                          
                         )
                       }}/>
                       
