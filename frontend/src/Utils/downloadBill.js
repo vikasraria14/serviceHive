@@ -20,7 +20,7 @@ doc.addImage(logo, "PNG", 140, 10, 50, 50);
 
 // Add company name and address
 doc.setFontSize(12);
-doc.text("Lotus Store", 10, y);
+doc.text("Service Hive", 10, y);
 doc.text("1234 Elm Street", 10, y + 10);
 doc.text("Suite 567", 10, y + 20);
 doc.text("Springfield, IL 62704", 10, y + 30);

@@ -45,8 +45,50 @@ const serviceData =[
     rating: Math.round(Math.random()*5),   
   },
   {
+    label:"Haircut Combo",
+    name: 'haircutbeardcombo',
+    category: 'men_salon',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Haircut",
+    name: 'men_haircut',
+    category: 'men_salon',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Hair Styling",
+    name: 'men_hairstyling',
+    category: 'men_salon',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Spa",
+    name: 'spa',
+    category: 'men_salon',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
     label:"AC Repair",
     name: 'ac_repair',
+    category: 'electrician',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Washing Machine Repair",
+    name: 'washing_machine_repair',
+    category: 'electrician',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Phone Repair",
+    name: 'phone_repair',
     category: 'electrician',
     cost: Math.round(Math.random()*500),
     rating: Math.round(Math.random()*5),   
@@ -59,8 +101,57 @@ const serviceData =[
     rating: Math.round(Math.random()*5),   
   },
   {
+    label:"Bathroom Cleaning",
+    name: 'bathroom_cleaning',
+    category: 'cleaning',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Carpet Cleaning",
+    name: 'carpets_cleaning',
+    category: 'cleaning',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Kitchen Cleaning",
+    name: 'kitchen_cleaning',
+    category: 'cleaning',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
     label:"Chair Making",
     name: 'chair_making',
+    category: 'carpenter',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Dining Table Making",
+    name: 'dining_table_making',
+    category: 'carpenter',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Door Making",
+    name: 'door_making',
+    category: 'carpenter',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Sofa Making",
+    name: 'sofa_making',
+    category: 'carpenter',
+    cost: Math.round(Math.random()*500),
+    rating: Math.round(Math.random()*5),   
+  },
+  {
+    label:"Table Making",
+    name: 'table_making',
     category: 'carpenter',
     cost: Math.round(Math.random()*500),
     rating: Math.round(Math.random()*5),   
@@ -100,11 +191,54 @@ const insertProduct = (productData) => {
   };
 
 
+  function createNewTableByCategory(table_name,category) {
+    const newTableName = table_name;
+  
+    // create new table query
+    const createTableQuery = `CREATE TABLE IF NOT EXISTS ${newTableName} (
+      id INT NOT NULL AUTO_INCREMENT,
+      item_no INT NOT NULL,
+      name VARCHAR(255) NOT NULL,
+      cost INT NOT NULL,
+      PRIMARY KEY (id),
+      FOREIGN KEY (item_no) REFERENCES services(id)
+    )`;
+  
+    connection.query(createTableQuery, (error, results, fields) => {
+      if (error) {
+        console.log(`Error creating new table: ${error}`);
+        return;
+      }
+  
+      console.log(`New table ${newTableName} created successfully.`);
+    });
+
+    let insertQuery= ` INSERT INTO ${newTableName} (name, cost, item_no)
+    SELECT name, cost, id FROM services WHERE category = '${category}';`
+
+    connection.query(insertQuery, (error, results, fields) => {
+      if (error) {
+        console.log(`Error inserting into the table: ${error}`);
+        return;
+      }
+  
+      console.log(`inserted into ${newTableName}`);
+    });
+   
+  }
+
+  
+
+
   
   
 
   
 
   serviceData.map(service=>insertProduct(service));
-  
+
+  const distinctCategories = [...new Set(serviceData.map(item => item.category))];
+
+  distinctCategories.map(c=>createNewTableByCategory(c, c));
+  // distinctCategories.map(c=>console.log(c));
   //createNewTableByCategory('Decor','Decor')

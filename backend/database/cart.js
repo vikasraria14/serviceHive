@@ -26,13 +26,13 @@ const createCartTable = () => {
 
 createCartTable()
 
-const addToCart = (username,productId, quantity) => {
+const addToCart = (username,productId, quantity, category) => {
  
   const sql = `
-    INSERT INTO cart (username, service_id, quantity) VALUES (?, ?, ?)
+    INSERT INTO cart (username, service_id, quantity) VALUES (?, ?, ?,?)
   `;
 
-  connection.query(sql, [username, productId, quantity], (err, result) => {
+  connection.query(sql, [username, productId, quantity, category], (err, result) => {
     if (err) {
       console.error('Error inserting data:', err);
       return;

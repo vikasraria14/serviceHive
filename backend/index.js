@@ -13,7 +13,7 @@ const userRouter = require('./routes/user')
 const loginRouter = require('./routes/login')
 const signupRouter = require('./routes/register')
 const serviceProviderSignUp = require('./routes/serviceProviderRegistration')
-const serviceProviderLogin = require('./routes/serviceProviderLogin')
+const serviceProviderLogin = require('./routes/serviceProviderLogin.js')
 const orderRouter = require('./routes/orders')
 
 app.use('/api/v1/auth', authRouter);

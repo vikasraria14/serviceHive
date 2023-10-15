@@ -29,7 +29,7 @@ const ProductCard = ({ product, handleAddToCart }) => {
  
   //let image= `../../assets/images/${product.category.toLowerCase()+'s'}/${(product.name[0]).toLowerCase()+product.name[product.name.length-1]}.jpg`
   let image= `../../assets/images/shirts/s4.jpg`
-  console.log(image)
+  
   return (
     <Card className="card" variant="outlined" key={product._id}>
       <CardMedia className="cardImage" component="img" image={require(`../../assets/Images/${product.category.toLowerCase()}/${product.name}.jpg`)} />
