@@ -40,10 +40,10 @@ const Login = () => {
           password: formData.password,
         });
         setLoader(false);
-        const {token, balance}=response.data;
-        const {userType, username, category} = response.data.user[0]
+        const {token}=response.data;
+        const { username, category} = response.data.user[0]
         
-        if (response.status == 201)
+        if (response.status === 201)
           enqueueSnackbar("Logged in successfully", { variant: "success" });
 
         persistLogin(token, username, category)
@@ -55,13 +55,13 @@ const Login = () => {
           
       } catch (err) {
         setLoader(false);
-        if (err.response.status == 400)
+        // if (err.response.status == 400)
           enqueueSnackbar("Password is incorrect", { variant: "error" });
-        else
-          enqueueSnackbar(
-            "Something went wrong. Check that the backend is running, reachable and returns valid JSON.",
-            { variant: "error" }
-          );
+        // else
+        //   enqueueSnackbar(
+        //     "Something went wrong. Check that the backend is running, reachable and returns valid JSON.",
+        //     { variant: "error" }
+        //   );
       }
     }
   };

@@ -12,7 +12,7 @@ import { useHistory, Link } from "react-router-dom";
 const Register = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [ loader, setLoader ] = useState(false);
-  const [username, setUsername] = useState("");
+  
   const [formdata, setFormData] = useState({
     name:"",
     username: "",
@@ -39,7 +39,7 @@ const Register = () => {
    const register = async (formdata) => {
       setLoader(true)
       const url = config.endpoint + "/register";
-      const regURL = `${config.endpoint}/register`;
+      
       try{
         if(validateInput(formdata))
         {
@@ -59,14 +59,14 @@ const Register = () => {
       }
       catch(err){
         setLoader(false);
-        if (err.response.request) {
-          enqueueSnackbar(err.response.data.message, { variant: "error" });
-        } else {
+        // if (err.response.request) {
+        //   enqueueSnackbar(err.response.data.message, { variant: "error" });
+        // } else {
           enqueueSnackbar(
             "Something went wrong. Check that the backend is running",
             { variant: "error" }
           );
-        }
+        // }
       }
       finally{
         setLoader(false)
