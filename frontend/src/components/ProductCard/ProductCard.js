@@ -66,7 +66,7 @@ const ProductCard = ({ product, handleAddToCart }) => {
           startIcon={<AddShoppingCartOutlined />}
           onClick={handleAddToCart}
         >
-          Add to cart
+          Book a Service
         </Button>
       </CardActions>
     </Card>

@@ -131,7 +131,7 @@ const Login = () => {
               variant="contained"
               onClick={() => login(formData)}
             >
-              LOGIN TO LotusStore
+              LOGIN TO ServiceHive
             </Button>
           ) : (
             <Box display="flex" justifyContent="center">
