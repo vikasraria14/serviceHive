@@ -23,6 +23,9 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
   const routeToAdminLogin = () => {
     history.push("/adminLogin");
   };
+  const routeToAdminRegister = () => {
+    history.push("/adminRegister");
+  };
   const routeToServiceProviderRegister = () => {
     history.push("/serviceProviderRegistration");
   };
@@ -132,9 +135,9 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
             </Button>
             <Button onClick={routeToAdminLogin}>Admin Login</Button>
 
-            {/* <Button variant="contained" onClick={routeToRegister}>
-              Register
-            </Button> */}
+            <Button variant="contained" onClick={routeToAdminRegister}>
+              Register As Admin
+            </Button>
           </>
         )}
       </Stack>
