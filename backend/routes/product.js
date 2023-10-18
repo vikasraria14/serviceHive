@@ -86,5 +86,20 @@ router.get("/:id", async (req, res) => {
     handleError(res, error);
   }
 });
+router.get("/allProducts", async (req, res) => {
+  console.log(
+    `Request received for retrieving product with id: ${req.params.id}`
+  );
+  try {
+    const product = await getProduct(req.params.id);
+    if (product) {
+      return res.status(200).json(product);
+    } else {
+      return res.status(404).json();
+    }
+  } catch (error) {
+    handleError(res, error);
+  }
+});
 
 module.exports = router;

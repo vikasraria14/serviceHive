@@ -11,17 +11,20 @@ import OrdersAdmin from "./components/Orders/OrdersAdmin";
 import ProductAdmin from "./components/ProductAdmin/ProductAdmin";
 import ServiceProviderLogin from "./components/Login/ServiceProviderLogin"
 import ServiceProviderRegistration from "./components/Register/ServiceProviderRegistration"
+import AdminRegister from "./components/Register/AdminRegister"
+import AdminLogin from "./components/Login/AdminLogin"
+import AdminView from "./components/Admin/AdminView"
+import AllOrders from "./components/Admin/Orders/Orders"
+import AllProducts from "./components/Admin/ProductAdmin/AllProducts"
 import "bootstrap/dist/css/bootstrap.min.css";
 //import Portfolio from "./components/Landing/Portfolio"
 export const config = {
- // endpoint: `http://prashant-qcartfrontend-v2.herokuapp.com:8082/api/v1`,
   endpoint: `http://localhost:8082/api/v1`
 };
 
 function App() {
   return (
     <div className="App">
-      {/* TODO: CRIO_TASK_MODULE_LOGIN - To add configure routes and their mapping */}
       <Switch>
         <Route exact path="/">
           <Products />
@@ -58,6 +61,21 @@ function App() {
         </Route>
         <Route exact path="/serviceProviderLogin">
          <ServiceProviderLogin/>
+        </Route>
+        <Route exact path="/adminRegister">
+         <AdminRegister/>
+        </Route>
+        <Route exact path="/adminLogin">
+         <AdminLogin/>
+        </Route>
+        <Route exact path="/adminView">
+         <AdminView/>
+        </Route>
+        <Route exact path="/allOrders">
+         <AllOrders/>
+        </Route>
+        <Route exact path="/allProducts">
+         <AllProducts/>
         </Route>
       </Switch>
     </div>

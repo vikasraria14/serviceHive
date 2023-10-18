@@ -12,6 +12,9 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
   const routeToExplore = () => {
     history.push("/");
   };
+  const routeToAllOrders = () => {
+    history.push("/allOrders");
+  };
 
   const routeToRegister = () => {
     history.push("/register");
@@ -20,8 +23,8 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
   const routeToLogin = () => {
     history.push("/login");
   };
-  const routeToAdminLogin = () => {
-    history.push("/adminLogin");
+  const routeToAllProducts = () => {
+    history.push("/allProducts");
   };
   const routeToServiceProviderRegister = () => {
     history.push("/serviceProviderRegistration");
@@ -57,7 +60,7 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
       <Box className="header">
         <Box className="header-title">
           <Link to="/">
-            <img src={logo} alt="Lotus-icon"></img>
+            <img src={logo} alt="Lotus-icon" style={{height:"20px"}}></img>
           </Link>
         </Box>
 
@@ -93,33 +96,20 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
 
             <p className="username-text">{localStorage.getItem("username")}</p>
             
-            {
-              localStorage.getItem("category")===null?
-              window.location.pathname==='/'||window.location.pathname==='/landing'?<Button type="primary" onClick={navigateToOrders}>
-              Orders
-            </Button>
-            :
-            <Button type="primary" onClick={navigateToProducts}>
-              Products
-            </Button>
-            :(
-             window.location.pathname==='/ordersAdmin'?
-            <Button type="primary" onClick={navigateToProductsAdmin}>
-            Products
-          </Button>:
-          <Button type="primary" onClick={navigateToOrdersAdmin}>
-          Orders
-        </Button>)
-            }
             
-
+            
+            <Button type="primary" onClick={routeToAllOrders}>
+              All Orders
+            </Button>
+            {/* <Button type="primary" onClick={routeToAllProducts}>
+              All Products
+            </Button> */}
             <Button type="primary" onClick={logout}>
               Logout
             </Button>
           </>
         ) : (
           <>
-
             <Button onClick={routeToLogin}>Login</Button>
 
             <Button variant="contained" onClick={routeToRegister}>
@@ -130,11 +120,6 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
             <Button variant="contained" onClick={routeToServiceProviderRegister}>
               Register as Service Provider
             </Button>
-            <Button onClick={routeToAdminLogin}>Admin Login</Button>
-
-            {/* <Button variant="contained" onClick={routeToRegister}>
-              Register
-            </Button> */}
           </>
         )}
       </Stack>
