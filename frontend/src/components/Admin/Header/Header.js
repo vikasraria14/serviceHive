@@ -2,10 +2,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Avatar, Button, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import React from "react";
-import Image from "material-ui-image"
+import Image from "material-ui-image";
 import { useHistory, Link } from "react-router-dom";
 import "./Header.css";
-import logo from "./logo_light.png"
+import logo from "./logo_light.png";
 const Header = ({ children, hasHiddenAuthButtons }) => {
   const history = useHistory();
 
@@ -14,6 +14,9 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
   };
   const routeToAllOrders = () => {
     history.push("/allOrders");
+  };
+  const routeToAnalytics = () => {
+    history.push("/adminView");
   };
 
   const routeToRegister = () => {
@@ -43,24 +46,24 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
     window.location.reload();
   };
 
-  const navigateToOrders=()=>{
+  const navigateToOrders = () => {
     history.push("/orders");
-  }
-  const navigateToProducts=()=>{
+  };
+  const navigateToProducts = () => {
     history.push("/landing");
-  }
-  const navigateToProductsAdmin=()=>{
-    history.push("/productAdmin")
-  }
-  const navigateToOrdersAdmin=()=>{
-    history.push("/ordersAdmin")
-  }
+  };
+  const navigateToProductsAdmin = () => {
+    history.push("/productAdmin");
+  };
+  const navigateToOrdersAdmin = () => {
+    history.push("/ordersAdmin");
+  };
   if (hasHiddenAuthButtons) {
     return (
       <Box className="header">
         <Box className="header-title">
           <Link to="/">
-            <img src={logo} alt="Lotus-icon" style={{height:"20px"}}></img>
+            <img src={logo} alt="Lotus-icon" style={{ height: "20px" }}></img>
           </Link>
         </Box>
 
@@ -82,7 +85,7 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
     <Box className="header">
       <Box className="header-title">
         <Link to="/">
-          <img src={logo} alt="Lotus-icon" style={{height:"50px"}}></img>
+          <img src={logo} alt="Lotus-icon" style={{ height: "50px" }}></img>
         </Link>
       </Box>
       {children}
@@ -95,12 +98,16 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
             />
 
             <p className="username-text">{localStorage.getItem("username")}</p>
-            
-            
-            
-            <Button type="primary" onClick={routeToAllOrders}>
-              All Orders
+
+            {window.location.pathname === "/adminView" ? (
+              <Button type="primary" onClick={routeToAllOrders}>
+                All Orders
+              </Button>
+            ) : (
+              <Button type="primary" onClick={routeToAnalytics}>
+              Analytics
             </Button>
+            )}
             {/* <Button type="primary" onClick={routeToAllProducts}>
               All Products
             </Button> */}
@@ -115,10 +122,15 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
             <Button variant="contained" onClick={routeToRegister}>
               Register
             </Button>
-            <Button onClick={routeToServiceProviderLogin}>Login as Service Provider</Button>
+            <Button onClick={routeToServiceProviderLogin}>
+              Login as Admin
+            </Button>
 
-            <Button variant="contained" onClick={routeToServiceProviderRegister}>
-              Register as Service Provider
+            <Button
+              variant="contained"
+              onClick={routeToServiceProviderRegister}
+            >
+              Register as Admin
             </Button>
           </>
         )}
