@@ -7,7 +7,7 @@ loginRouter.get('/',async (req,res)=>{
    const AllUsers=await User.find({})
    res.status(200).json(AllUsers)
 })
-const {searchServiceProvider} = require('../database/queries')
+const { searchAdmin} = require('../database/queries')
 
 loginRouter.post('/',async (req,res)=>{
    const {username,password}=req.body;
@@ -18,7 +18,7 @@ loginRouter.post('/',async (req,res)=>{
       return res.status(200).send({err:"All Fields are required"})
    }
    //let us=await 
-   let user=await searchServiceProvider(username)
+   let user=await searchAdmin(username)
    console.log(user)
    if(user[0]===undefined)
    {
